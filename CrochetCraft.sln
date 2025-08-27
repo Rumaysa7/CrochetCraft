@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrochetCraft", "CrochetCraft.csproj", "{BFC54078-1C7D-4874-859A-AE35CCA8436A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFC54078-1C7D-4874-859A-AE35CCA8436A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC54078-1C7D-4874-859A-AE35CCA8436A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC54078-1C7D-4874-859A-AE35CCA8436A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC54078-1C7D-4874-859A-AE35CCA8436A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0286CCE-012C-4ADF-B2F2-B54B0D8C68E7}
+	EndGlobalSection
+EndGlobal

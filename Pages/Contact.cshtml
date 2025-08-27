@@ -1,0 +1,53 @@
+﻿@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<section class="contact-section py-5">
+    <div class="container">
+        <h2 class="section-title mb-4">Contact Crochet Craft</h2>
+
+        <p class="mb-4 text-muted">We’d love to hear from you! Whether you have questions about our products, tutorials, or need assistance, drop us a message.</p>
+
+        <form method="post" class="contact-form needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="Name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="Name" name="Name" required />
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="Email" name="Email" required />
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-3">
+                <label for="Message" class="form-label">Message</label>
+                <textarea class="form-control" id="Message" name="Message" rows="5" required></textarea>
+                <div class="invalid-feedback">Please enter a message.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Bootstrap form validation
+        (() => {
+          'use strict'
+          const forms = document.querySelectorAll('.needs-validation')
+
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
+}
