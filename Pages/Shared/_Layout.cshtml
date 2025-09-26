@@ -14,6 +14,8 @@
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <header class="header sticky-top">
@@ -81,6 +83,7 @@
     <footer class="footer bg-light py-5 mt-auto">
         <div class="container">
             <div class="row">
+                <!-- Branding & Description -->
                 <div class="col-lg-4 mb-4">
                     <h5 class="fw-bold mb-3">Crochet Craft</h5>
                     <p class="text-muted">Create beautiful things with your hands. Discover the art of crochet with premium supplies and expert guidance.</p>
@@ -88,7 +91,7 @@
                         <a href="#" class="text-decoration-none me-3" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-decoration-none me-3" aria-label="Instagram">
+                        <a href="https://www.instagram.com/_love.knots_/" class="text-decoration-none me-3" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <a href="#" class="text-decoration-none me-3" aria-label="Pinterest">
@@ -100,6 +103,7 @@
                     </div>
                 </div>
 
+                <!-- Quick Links -->
                 <div class="col-lg-2 col-md-4 mb-4">
                     <h6 class="fw-bold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
@@ -110,6 +114,7 @@
                     </ul>
                 </div>
 
+                <!-- Support -->
                 <div class="col-lg-2 col-md-4 mb-4">
                     <h6 class="fw-bold mb-3">Support</h6>
                     <ul class="list-unstyled">
@@ -119,11 +124,12 @@
                     </ul>
                 </div>
 
+                <!-- Newsletter -->
                 <div class="col-lg-4 col-md-4 mb-4">
                     <h6 class="fw-bold mb-3">Newsletter</h6>
                     <p class="text-muted small">Get the latest patterns, tips, and special offers.</p>
                     <form class="newsletter-form d-flex" method="post" action="#">
-                        <input type="email" class="form-control rounded-start" placeholder="Enter your email" aria-label="Email" />
+                        <input type="email" class="form-control rounded-start" placeholder="Enter your email" aria-label="Email" required />
                         <button class="btn btn-primary rounded-end" type="submit">Subscribe</button>
                     </form>
                 </div>
@@ -133,19 +139,18 @@
 
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="text-muted small mb-0">&copy; @DateTime.Now.Year Crochet Craft. All rights reserved.</p>
+                    <p class="text-muted small mb-0">&copy; 2025 Crochet Craft. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="text-muted small mb-0">
-                        <i class="fas fa-envelope me-2"></i>hello@crochetcraft.com
+                        <i class="fas fa-envelope me-2"></i>rumaysaafsan17@gmail.com
                         <span class="mx-2">|</span>
-                        <i class="fas fa-phone me-2"></i>(555) 123-4567
+                        <i class="fas fa-phone me-2"></i>+91 99008****7
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -61,6 +61,12 @@ body {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
+.cursive-text {
+    font-family: 'Brush Script MT', cursive;
+    font-style: italic;
+    color: var(--primary-color);
+}
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
@@ -124,6 +130,18 @@ body {
     padding: 4rem 2rem;
     text-align: center;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+    max-width: 600px; /* or your desired max width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-image img {
+        border-radius: 1rem;
+        height: auto;
+        object-fit: cover;
 }
 
 .min-vh-75 {
