@@ -1,0 +1,272 @@
+﻿@page
+@model CrochetCraft.Pages.ShopModel
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<h1>🧶 Crochet Items for Sale</h1>
+<div class="product-grid" id="productGrid"></div>
+<div id="cart">
+    <h2>🛒 Your Cart</h2>
+    <div id="cartItems"></div>
+    <p><strong>Total: ₹<span id="cartTotal">0</span></strong></p>
+    <button id="pay-btn">Pay Now</button>
+</div>
+<div id="payment-modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Scan to Pay with UPI</h3>
+        <p>Open any UPI app like Google Pay, PhonePe, or Paytm and scan the QR code to complete your payment.</p>
+        <div id="qr-code"></div>
+        <p>Or pay directly to UPI ID:<br><strong>123shreya@upi</strong></p>
+        <p>Amount: <strong>₹<span id="modal-total">0</span></strong></p>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        const products = [
+            { id: "dress", name: "Crochet keychain", price: 799, image: "/images/keychain.jpg" },
+            { id: "bag", name: "Crochet Bag", price: 399, image: "/images/bag.jpg" },
+            { id: "hat", name: "Crochet hat", price: 299, image: "/images/hat.jpg" },
+            { id: "top", name: "Crochet amigurumi toy", price: 599, image: "/images/amigurumi toy.jpg" },
+            { id: "sweater", name: "Crochet flower", price: 899, image: "/images/flower.jpg" },
+            
+        ];
+        const cart = {};
+        const productGrid = document.getElementById("productGrid");
+        const cartItems = document.getElementById("cartItems");
+        const cartTotalSpan = document.getElementById("cartTotal");
+        const payBtn = document.getElementById("pay-btn");
+        const paymentModal = document.getElementById("payment-modal");
+        const closeBtn = document.querySelector(".close-btn");
+        const modalTotalSpan = document.getElementById("modal-total");
+        const qrCodeDiv = document.getElementById("qr-code");
+
+        products.forEach(p => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `<img src="${p.image}" alt="${p.name}"><p>${p.name} - ₹${p.price}</p><div class="quantity-controls"><button onclick="changeQty('${p.id}', -1)">-</button><span id="qty-${p.id}">0</span><button onclick="changeQty('${p.id}', 1)">+</button></div><button class="add-to-cart" onclick="add('${p.id}')">Add to Cart</button>`;
+            productGrid.appendChild(div);
+        });
+
+        function changeQty(id, delta) {
+            const span = document.getElementById(`qty-${id}`);
+            let qty = parseInt(span.textContent);
+            qty = Math.max(0, qty + delta);
+            span.textContent = qty;
+        }
+
+        function add(id) {
+            const qty = parseInt(document.getElementById(`qty-${id}`).textContent);
+            if (qty === 0) return;
+            const p = products.find(prod => prod.id === id);
+            cart[id] = cart[id] ? { ...cart[id], quantity: cart[id].quantity + qty } : { ...p, quantity: qty };
+            update();
+            document.getElementById(`qty-${id}`).textContent = "0";
+        }
+
+        function remove(id) {
+            delete cart[id];
+            update();
+        }
+
+        function update() {
+            cartItems.innerHTML = "";
+            let total = 0;
+            for (const id in cart) {
+                const item = cart[id];
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `<span class="cart-item-name">${item.name} × ${item.quantity} = ₹${itemTotal}</span><button onclick="remove('${item.id}')">Remove</button>`;
+                cartItems.appendChild(div);
+            }
+            cartTotalSpan.textContent = total;
+        }
+
+        payBtn.addEventListener("click", () => {
+            const total = parseFloat(cartTotalSpan.textContent);
+            if (total === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            modalTotalSpan.textContent = total;
+            paymentModal.style.display = "flex";
+            qrCodeDiv.innerHTML = "";
+            const upiLink = `upi://pay?pa=123shreya@upi&pn=Crochet Store&am=${total}&cu=INR`;
+            new QRCode(qrCodeDiv, { text: upiLink, width: 150, height: 150 });
+        });
+
+        closeBtn.addEventListener("click", () => paymentModal.style.display = "none");
+        window.addEventListener("click", (e) => { if (e.target === paymentModal) paymentModal.style.display = "none"; });
+
+        window.changeQty = changeQty;
+        window.add = add;
+        window.remove = remove;
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff9f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #fddde6;
+            color: #d6336c;
+            margin: 0;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+            .product img {
+                max-width: 100%;
+                border-radius: 10px;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .product p {
+                margin: 10px 0;
+                font-size: 18px;
+            }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            gap: 10px;
+        }
+
+            .quantity-controls button {
+                padding: 5px 10px;
+                font-size: 16px;
+                background-color: #eee;
+                border: 1px solid #ccc;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+        .product button.add-to-cart {
+            background-color: #d6336c;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+            .product button.add-to-cart:hover {
+                background-color: #b02556;
+            }
+
+        #cart {
+            padding: 20px;
+            margin: 20px;
+            background: #fdf0f3;
+            border-radius: 12px;
+        }
+
+            #cart h2 {
+                margin-top: 0;
+            }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .cart-item-name {
+            flex-grow: 1;
+        }
+
+        .cart-item button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+            .cart-item button:hover {
+                background-color: #d32f2f;
+            }
+
+        #pay-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #d6336c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #payment-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #qr-code {
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+    </style>
+}
